@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type { CSSProperties } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -36,6 +37,14 @@ function getSplashHoldWidth(viewportWidth: number): number {
   return Math.min(Math.max(15 * 16, viewportWidth * 0.31), 29 * 16);
 }
 
+function getSplashHoldHeight(viewportWidth: number): number {
+  if (viewportWidth <= 840) {
+    return Math.min(Math.max(7.4 * 16, viewportWidth * 0.3), 11 * 16);
+  }
+
+  return Math.min(Math.max(7 * 16, viewportWidth * 0.14), 15 * 16);
+}
+
 function hasSeenSplash(): boolean {
   try {
     return window.localStorage.getItem(SPLASH_STORAGE_KEY) === "1";
@@ -54,12 +63,19 @@ function markSplashAsSeen() {
 
 export default function HomeExperience({ content }: HomeExperienceProps) {
   const [phase, setPhase] = useState<SplashPhase>("intro");
-  const [splitOffset, setSplitOffset] = useState<{ left: number; right: number }>(
-    {
-      left: 0,
-      right: 0,
-    },
-  );
+  const [headlineIndex, setHeadlineIndex] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [splitOffset, setSplitOffset] = useState<{
+    left: number;
+    right: number;
+    up: number;
+    down: number;
+  }>({
+    left: 0,
+    right: 0,
+    up: 0,
+    down: 0,
+  });
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const splashVideoRef = useRef<HTMLVideoElement>(null);
   const splashWordTopRef = useRef<HTMLParagraphElement>(null);
@@ -109,6 +125,20 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
 
     markSplashAsSeen();
   }, [phase]);
+
+  useEffect(() => {
+    const closeMenuOnDesktop = () => {
+      if (window.innerWidth > 840) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", closeMenuOnDesktop);
+
+    return () => {
+      window.removeEventListener("resize", closeMenuOnDesktop);
+    };
+  }, []);
 
   useEffect(() => {
     const primeVideoFrame = (video: HTMLVideoElement | null) => {
@@ -165,14 +195,23 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
       const viewportWidth = window.innerWidth;
       const topWidth = topWord.getBoundingClientRect().width;
       const bottomWidth = bottomWord.getBoundingClientRect().width;
+      const topHeight = topWord.getBoundingClientRect().height;
+      const bottomHeight = bottomWord.getBoundingClientRect().height;
       const holdWindowWidth = getSplashHoldWidth(viewportWidth);
+      const holdWindowHeight = getSplashHoldHeight(viewportWidth);
       const safetyGap = Math.max(30, viewportWidth * 0.022);
+      const verticalSafetyGap = Math.max(26, window.innerHeight * 0.022);
       const leftDistance = topWidth / 2 + holdWindowWidth / 2 + safetyGap;
       const rightDistance = bottomWidth / 2 + holdWindowWidth / 2 + safetyGap;
+      const upDistance = topHeight / 2 + holdWindowHeight / 2 + verticalSafetyGap;
+      const downDistance =
+        bottomHeight / 2 + holdWindowHeight / 2 + verticalSafetyGap;
 
       setSplitOffset({
         left: Math.ceil(leftDistance),
         right: Math.ceil(rightDistance),
+        up: Math.ceil(upDistance),
+        down: Math.ceil(downDistance),
       });
     };
 
@@ -306,19 +345,44 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
     };
   }, [phase]);
 
-  const headingLines = useMemo(
-    () => content.hero.heading.split("\n"),
-    [content.hero.heading],
-  );
+  useEffect(() => {
+    if (phase !== "done" || content.hero.headlines.length <= 1) {
+      return;
+    }
+
+    const rotateTimer = window.setInterval(() => {
+      setHeadlineIndex((currentIndex) =>
+        (currentIndex + 1) % content.hero.headlines.length,
+      );
+    }, 15000);
+
+    return () => {
+      window.clearInterval(rotateTimer);
+    };
+  }, [phase, content.hero.headlines.length]);
+
+  const activeHeadline = useMemo(() => {
+    if (content.hero.headlines.length === 0) {
+      return "";
+    }
+
+    return content.hero.headlines[headlineIndex % content.hero.headlines.length];
+  }, [content.hero.headlines, headlineIndex]);
 
   const splashStyle = useMemo(
     () =>
       ({
         "--split-left": `${splitOffset.left}px`,
         "--split-right": `${splitOffset.right}px`,
+        "--split-up": `${splitOffset.up}px`,
+        "--split-down": `${splitOffset.down}px`,
       }) as CSSProperties,
-    [splitOffset.left, splitOffset.right],
+    [splitOffset.down, splitOffset.left, splitOffset.right, splitOffset.up],
   );
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <section className={styles.page} data-ready={isHeroReady} id="top">
@@ -338,29 +402,71 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
 
       <header className={styles.navbar}>
         <a className={styles.brandMark} href="#top">
-          <span>{content.brand.topLine}</span>
-          <span>{content.brand.bottomLine}</span>
+          <Image
+            alt="Vision Interiors logo"
+            className={styles.brandLogo}
+            height={155}
+            priority
+            src="/vision-logo.png"
+            width={172}
+          />
+
+          <span className={styles.brandText}>
+            <span>{content.brand.topLine}</span>
+            <span>{content.brand.bottomLine}</span>
+          </span>
         </a>
 
         <nav aria-label="Primary" className={styles.navLinks}>
           {content.navigation.map((item) => (
-            <a href={item.href} key={item.href}>
+            <a href={item.href} key={item.href} onClick={closeMobileMenu}>
               {item.label}
             </a>
           ))}
         </nav>
 
-        <a className={styles.contactButton} href="#contact">
-          {content.ctaLabel}
-          <span aria-hidden>→</span>
-        </a>
+        <div className={styles.navActions}>
+          <a className={styles.contactButton} href="#contact" onClick={closeMobileMenu}>
+            {content.ctaLabel}
+            <span aria-hidden>→</span>
+          </a>
+
+          <button
+            aria-controls="mobile-primary-nav"
+            aria-expanded={isMobileMenuOpen}
+            aria-label="Toggle navigation menu"
+            className={styles.menuButton}
+            data-open={isMobileMenuOpen}
+            onClick={() => {
+              setIsMobileMenuOpen((currentState) => !currentState);
+            }}
+            type="button"
+          >
+            <span className={styles.menuButtonLine} />
+            <span className={styles.menuButtonLine} />
+            <span className={styles.menuButtonLine} />
+          </button>
+        </div>
       </header>
 
-      <main className={styles.heroCopy}>
-        <h1>
-          {headingLines.map((line) => (
-            <span key={line}>{line}</span>
+      <div className={styles.mobileMenu} data-open={isMobileMenuOpen}>
+        <nav aria-label="Mobile primary" className={styles.mobileMenuPanel} id="mobile-primary-nav">
+          {content.navigation.map((item) => (
+            <a href={item.href} key={`mobile-${item.href}`} onClick={closeMobileMenu}>
+              {item.label}
+            </a>
           ))}
+
+          <a className={styles.mobileContactButton} href="#contact" onClick={closeMobileMenu}>
+            {content.ctaLabel}
+            <span aria-hidden>→</span>
+          </a>
+        </nav>
+      </div>
+
+      <main className={styles.heroCopy}>
+        <h1 className={styles.heroHeadline} key={activeHeadline}>
+          {activeHeadline}
         </h1>
 
         <p className={styles.heroSubheading}>{content.hero.subheading}</p>
@@ -369,9 +475,37 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
       <p className={styles.heroDescription}>{content.hero.description}</p>
 
       <aside aria-label="Studio rating" className={styles.ratingCard}>
-        <p className={styles.stars} aria-hidden>
-          ★★★★★
-        </p>
+        <div className={styles.ratingHeader}>
+          <p className={styles.stars} aria-hidden>
+            ★★★★☆
+          </p>
+
+          <p className={styles.googleBadge}>
+            <svg
+              aria-hidden
+              className={styles.googleIcon}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M23.49 12.27c0-.79-.07-1.55-.19-2.27H12v4.29h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.88c2.27-2.09 3.54-5.17 3.54-8.65z"
+                fill="#4285f4"
+              />
+              <path
+                d="M12 24c3.24 0 5.96-1.07 7.95-2.91l-3.88-3c-1.08.72-2.46 1.15-4.07 1.15-3.13 0-5.78-2.11-6.72-4.95H1.27v3.09A12 12 0 0 0 12 24z"
+                fill="#34a853"
+              />
+              <path
+                d="M5.28 14.29A7.2 7.2 0 0 1 4.91 12c0-.8.14-1.57.37-2.29V6.62H1.27A12 12 0 0 0 0 12c0 1.94.46 3.78 1.27 5.38l4.01-3.09z"
+                fill="#fbbc05"
+              />
+              <path
+                d="M12 4.77c1.76 0 3.34.61 4.58 1.8l3.43-3.43C17.95 1.19 15.24 0 12 0A12 12 0 0 0 1.27 6.62l4.01 3.09C6.22 6.88 8.87 4.77 12 4.77z"
+                fill="#ea4335"
+              />
+            </svg>
+            Google
+          </p>
+        </div>
 
         <div className={styles.ratingRow}>
           <span className={styles.ratingScore}>{content.stat.score}</span>
