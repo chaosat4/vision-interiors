@@ -96,6 +96,14 @@ Rules:
 - Motion should include a subtle mid-scroll dwell (sweetspot) before cards lift out.
 - Maintain warm palette contrast and avoid harsh, high-saturation overlays.
 
+### Featured Works Section Rules
+
+- Present projects in a horizontal scroller without next/previous controls.
+- Keep movement tactile and smooth using scroll-snap and touch-friendly drag behavior.
+- Maintain dark editorial contrast with warm type accents for section identity.
+- Cards should feel premium: clear project image, concise metadata, and restrained hover motion.
+- Mobile must retain horizontal swipe with readable card copy and spacing.
+
 ## Navbar Rules
 
 - Desktop: full nav links + CTA.
@@ -117,6 +125,8 @@ Rules:
   - `components/pages/home/OurProcess.module.css`
   - `components/pages/home/AboutVision.tsx`
   - `components/pages/home/AboutVision.module.css`
+  - `components/pages/home/FeaturedWorks.tsx`
+  - `components/pages/home/FeaturedWorks.module.css`
   - `content/content.ts`
   - `app/globals.css`
   - `app/layout.tsx`

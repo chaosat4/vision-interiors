@@ -42,6 +42,23 @@ export type AboutContent = {
   images: AboutShowcaseImage[];
 };
 
+export type FeaturedWorkItem = {
+  slug: string;
+  title: string;
+  location: string;
+  year: string;
+  brief: string;
+  imageUrl: string;
+  href: string;
+};
+
+export type FeaturedWorksContent = {
+  eyebrow: string;
+  heading: string;
+  description: string;
+  items: FeaturedWorkItem[];
+};
+
 export type HomeContent = {
   brand: {
     topLine: string;
@@ -58,6 +75,7 @@ export type HomeContent = {
   };
   process: ProcessContent;
   about: AboutContent;
+  featuredWorks: FeaturedWorksContent;
   stat: HeroStat;
 };
 
@@ -184,6 +202,102 @@ export const homeContent: HomeContent = {
         imageUrl:
           "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=80",
         alt: "Interior courtyard opening framed by architecture.",
+      },
+    ],
+  },
+  featuredWorks: {
+    eyebrow: "Curated Portfolio",
+    heading: "Featured Works",
+    description:
+      "A selection of residential and hospitality projects where material warmth, spatial clarity, and timeless proportion come together.",
+    items: [
+      {
+        slug: "courtyard-house",
+        title: "Courtyard House",
+        location: "Banjara Hills",
+        year: "2024",
+        brief:
+          "A contemporary family residence organized around water, daylight, and a quiet internal garden. Warm textures balance the clean architectural shell.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=80",
+        href: "#",
+      },
+      {
+        slug: "stone-villa",
+        title: "Stone + Light Villa",
+        location: "Jubilee Hills",
+        year: "2024",
+        brief:
+          "A layered home where stone, soft timber tones, and open transitions create calm visual rhythm across public and private zones.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1800&q=80",
+        href: "#",
+      },
+      {
+        slug: "urban-courtyard",
+        title: "Urban Courtyard Residence",
+        location: "Emaar District",
+        year: "2023",
+        brief:
+          "Designed for city living with inward-looking landscaped pockets, this project delivers privacy while keeping generous spatial openness.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1800&q=80",
+        href: "#",
+      },
+      {
+        slug: "minimal-townhome",
+        title: "Minimal Townhome",
+        location: "Kokapet",
+        year: "2023",
+        brief:
+          "An edited palette and precise detailing shape a minimal yet warm home, with flexible interiors tuned for everyday family routines.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?auto=format&fit=crop&w=1800&q=80",
+        href: "#",
+      },
+      {
+        slug: "hillside-courtyard",
+        title: "Hillside Courtyard Home",
+        location: "Gachibowli",
+        year: "2024",
+        brief:
+          "Terraced spatial planning responds to the natural slope, combining framed landscape views with intimate and sheltered gathering spaces.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80",
+        href: "#",
+      },
+      {
+        slug: "terrace-villa",
+        title: "Terrace Light Villa",
+        location: "Financial District",
+        year: "2022",
+        brief:
+          "Sunlight-first planning guides this villa, where each level opens to outdoor terraces and creates a seamless indoor-outdoor lifestyle.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1800&q=80",
+        href: "#",
+      },
+      {
+        slug: "stone-frame-house",
+        title: "Stone Frame Residence",
+        location: "Tellapur",
+        year: "2022",
+        brief:
+          "Robust stone volumes are softened with curated interiors and textured finishes, delivering durability with understated luxury.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1613553497126-a44624272024?auto=format&fit=crop&w=1800&q=80",
+        href: "#",
+      },
+      {
+        slug: "monolith-house",
+        title: "Monolith Family House",
+        location: "Narsingi",
+        year: "2021",
+        brief:
+          "A bold monolithic exterior gives way to warm, human-scaled interiors designed for fluid movement, family interaction, and quiet comfort.",
+        imageUrl:
+          "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1800&q=80",
+        href: "#",
       },
     ],
   },

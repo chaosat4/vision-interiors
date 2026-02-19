@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import type { CSSProperties, MouseEvent as ReactMouseEvent } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { HomeContent } from "@/content/content";
 
 import AboutVision from "./AboutVision";
+import FeaturedWorks from "./FeaturedWorks";
 import OurProcess from "./OurProcess";
 import styles from "./HomeExperience.module.css";
 
@@ -82,7 +83,65 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
   const splashVideoRef = useRef<HTMLVideoElement>(null);
   const splashWordTopRef = useRef<HTMLParagraphElement>(null);
   const splashWordBottomRef = useRef<HTMLParagraphElement>(null);
+  const smoothScrollFrameRef = useRef<number | null>(null);
   const isHeroReady = phase === "done";
+
+  const stopSmoothScrollFrame = () => {
+    if (smoothScrollFrameRef.current) {
+      window.cancelAnimationFrame(smoothScrollFrameRef.current);
+      smoothScrollFrameRef.current = null;
+    }
+  };
+
+  const smoothScrollToId = (targetId: string) => {
+    const target = document.getElementById(targetId);
+
+    if (!target) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const startY = window.scrollY;
+    const targetY = target.getBoundingClientRect().top + window.scrollY;
+
+    if (prefersReducedMotion || Math.abs(targetY - startY) < 4) {
+      window.scrollTo(0, targetY);
+      return;
+    }
+
+    stopSmoothScrollFrame();
+
+    const duration = 900;
+    const startAt = performance.now();
+    const travel = targetY - startY;
+    const easeInOutQuint = (progress: number) =>
+      progress < 0.5
+        ? 16 * progress ** 5
+        : 1 - (-2 * progress + 2) ** 5 / 2;
+
+    const frame = (timestamp: number) => {
+      const progress = Math.min((timestamp - startAt) / duration, 1);
+      const easedProgress = easeInOutQuint(progress);
+
+      window.scrollTo(0, startY + travel * easedProgress);
+
+      if (progress < 1) {
+        smoothScrollFrameRef.current = window.requestAnimationFrame(frame);
+        return;
+      }
+
+      smoothScrollFrameRef.current = null;
+    };
+
+    smoothScrollFrameRef.current = window.requestAnimationFrame(frame);
+  };
+
+  const handleScrollCueClick = (event: ReactMouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    smoothScrollToId("process");
+  };
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -117,6 +176,14 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
       timers.forEach((timerId) => {
         window.clearTimeout(timerId);
       });
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (smoothScrollFrameRef.current) {
+        window.cancelAnimationFrame(smoothScrollFrameRef.current);
+      }
     };
   }, []);
 
@@ -540,6 +607,7 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
           aria-label="Scroll to our process"
           className={styles.scrollCue}
           href="#process"
+          onClick={handleScrollCueClick}
         >
           <span className={styles.scrollCueLabel}>Scroll</span>
           <span aria-hidden className={styles.scrollCueIcon}>
@@ -579,6 +647,7 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
 
       <OurProcess process={content.process} />
       <AboutVision about={content.about} />
+      <FeaturedWorks featuredWorks={content.featuredWorks} />
     </>
   );
 }
