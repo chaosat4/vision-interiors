@@ -27,6 +27,21 @@ export type ProcessContent = {
   steps: ProcessStep[];
 };
 
+export type AboutShowcaseImage = {
+  slug: string;
+  imageUrl: string;
+  alt: string;
+};
+
+export type AboutContent = {
+  eyebrow: string;
+  heading: string;
+  description: string;
+  ctaLabel: string;
+  ctaHref: string;
+  images: AboutShowcaseImage[];
+};
+
 export type HomeContent = {
   brand: {
     topLine: string;
@@ -42,6 +57,7 @@ export type HomeContent = {
     posterUrl: string;
   };
   process: ProcessContent;
+  about: AboutContent;
   stat: HeroStat;
 };
 
@@ -139,6 +155,35 @@ export const homeContent: HomeContent = {
         metric: "End-to-End Support",
         imageUrl:
           "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80",
+      },
+    ],
+  },
+  about: {
+    eyebrow: "About Vision Interiors",
+    heading:
+      "The Vision Interiors Architecture Style Is Defined By Strong, Solid Forms With Subtle Elegance, Natural Balance And Enduring Appeal",
+    description:
+      "We work closely with clients right from the start, with clear communication and expert guidance along the way. We also work closely with builders, consultants, and partners to make sure each project runs smoothly and the final build delivers well beyond shared aspirations.",
+    ctaLabel: "Learn More About Us",
+    ctaHref: "#contact",
+    images: [
+      {
+        slug: "about-left",
+        imageUrl:
+          "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?auto=format&fit=crop&w=1400&q=80",
+        alt: "Curved architecture viewed from below.",
+      },
+      {
+        slug: "about-center",
+        imageUrl:
+          "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1400&q=80",
+        alt: "Glass building facade catching warm sunlight.",
+      },
+      {
+        slug: "about-right",
+        imageUrl:
+          "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=80",
+        alt: "Interior courtyard opening framed by architecture.",
       },
     ],
   },

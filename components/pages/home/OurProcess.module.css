@@ -72,7 +72,7 @@
     radial-gradient(circle at 14% 22%, rgb(255 245 223 / 12%), transparent 44%);
 }
 
-.mobileAccordion {
+.mobileExperience {
   display: none;
 }
 
@@ -316,7 +316,13 @@
 @media (max-width: 1024px) {
   .section {
     min-height: 100dvh;
-    padding: 3.5rem 1rem 4.5rem;
+    padding: 3.2rem 1rem 4.5rem;
+    background-image:
+      linear-gradient(180deg, rgb(219 207 192 / 98%), rgb(214 201 185 / 94%)),
+      radial-gradient(circle at 14% 16%, rgb(255 249 240 / 38%), transparent 44%),
+      radial-gradient(circle at 86% 84%, rgb(188 165 137 / 20%), transparent 52%),
+      radial-gradient(circle, rgb(161 146 126 / 14%) 1px, transparent 1px);
+    background-size: auto, auto, auto, 1.45rem 1.45rem;
   }
 
   .header {
@@ -324,131 +330,301 @@
   }
 
   .header h2 {
-    max-width: 14ch;
-    font-size: clamp(2rem, 7.8vw, 3.2rem);
+    max-width: 12ch;
+    font-size: clamp(2.25rem, 8.4vw, 3.6rem);
+    line-height: 0.92;
   }
 
   .description {
-    width: min(40rem, 100%);
-    font-size: 0.98rem;
+    width: min(34rem, 94vw);
+    font-size: 1rem;
   }
 
   .track {
     display: none;
   }
 
-  .mobileAccordion {
+  .mobileExperience {
     display: grid;
-    gap: 0.68rem;
+    gap: 1rem;
     width: min(95%, 760px);
-    margin: 1.35rem auto 0;
+    margin: 1.4rem auto 0;
   }
 
-  .mobileCard {
+  .mobileFeaturedCard {
     position: relative;
     overflow: hidden;
     border: 1px solid rgb(248 236 214 / 34%);
-    border-radius: 0.96rem;
+    border-radius: 1.18rem;
+    background: rgb(242 232 216 / 88%);
+    box-shadow: 0 16px 34px rgb(18 13 9 / 18%);
+    animation: mobileFeaturedReveal 420ms cubic-bezier(0.2, 0.84, 0.2, 1);
+  }
+
+  .mobileFeaturedMedia {
+    --process-mobile-active-image: none;
+    position: relative;
+    height: clamp(8.8rem, 28vw, 11rem);
+    padding: 0.9rem 0.92rem 0.82rem 4.2rem;
     background-image:
-      linear-gradient(180deg, rgb(14 10 8 / 44%), rgb(14 10 8 / 70%)),
-      var(--process-mobile-image, var(--process-image));
+      linear-gradient(180deg, rgb(17 13 10 / 24%), rgb(17 13 10 / 62%)),
+      var(--process-mobile-active-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 0 12px 30px rgb(18 13 9 / 16%);
   }
 
-  .mobileCard::before {
+  .mobileFeaturedMedia::before {
     position: absolute;
     inset: 0;
     content: "";
     pointer-events: none;
     background:
-      linear-gradient(180deg, rgb(14 10 8 / 18%), rgb(14 10 8 / 54%)),
-      radial-gradient(circle at 70% 24%, rgb(255 219 160 / 16%), transparent 40%);
+      linear-gradient(180deg, transparent 0%, rgb(11 8 6 / 58%) 100%),
+      radial-gradient(circle at 70% 24%, rgb(255 219 160 / 22%), transparent 46%);
   }
 
-  .mobileTrigger {
+  .mobileFeaturedStep,
+  .mobileFeaturedMetric,
+  .mobileFeaturedMedia h3,
+  .mobileNextButton {
+    position: relative;
+    z-index: 3;
+  }
+
+  .mobileFeaturedStep {
+    position: absolute;
+    top: 50%;
+    left: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.48rem;
+    height: 2.48rem;
+    border: 1px solid rgb(251 239 219 / 66%);
+    border-radius: 999px;
+    background: rgb(25 20 16 / 44%);
+    color: rgb(252 243 227 / 96%);
+    font-family: var(--font-display), "Times New Roman", serif;
+    font-size: 1rem;
+    line-height: 1;
+    transform: translateY(-50%);
+  }
+
+  .mobileFeaturedMetric {
+    margin: 0;
+    color: rgb(250 217 165 / 95%);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-shadow: 0 4px 12px rgb(0 0 0 / 26%);
+  }
+
+  .mobileFeaturedMedia h3 {
+    margin: 0.42rem 0 0;
+    color: rgb(251 243 230 / 96%);
+    font-family: var(--font-display), "Times New Roman", serif;
+    font-size: clamp(1.78rem, 6vw, 2.4rem);
+    font-weight: 500;
+    line-height: 0.92;
+    max-width: 11ch;
+    text-wrap: balance;
+    text-shadow: 0 4px 16px rgb(0 0 0 / 26%);
+  }
+
+  .mobileNextButton {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.22rem;
+    height: 2.22rem;
+    border: 1px solid rgb(250 238 219 / 56%);
+    border-radius: 999px;
+    background: rgb(28 22 16 / 54%);
+    color: rgb(251 239 216 / 94%);
+    font-size: 1rem;
+    line-height: 1;
+    transform: translateY(-50%);
+    animation: mobileNextWiggle 1.7s ease-in-out infinite;
+  }
+
+  .mobileFeaturedBody {
     position: relative;
     z-index: 2;
+    display: grid;
+    gap: 0.5rem;
+    padding: 0.98rem 0.95rem 1.05rem;
+    background:
+      linear-gradient(180deg, rgb(245 236 224 / 96%), rgb(237 225 208 / 94%));
+  }
+
+  .mobileFeaturedSummary {
+    margin: 0;
+    color: rgb(34 28 22 / 92%);
+    font-size: 1.06rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .mobileFeaturedDetail {
+    margin: 0;
+    color: rgb(70 56 42 / 76%);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .mobileTimeline {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 0.15rem;
+    display: grid;
+    gap: 0.16rem;
+  }
+
+  .mobileTimeline::before {
+    position: absolute;
+    top: 0.2rem;
+    bottom: 0.5rem;
+    left: 1.04rem;
+    content: "";
+    width: 1px;
+    background: rgb(147 126 103 / 40%);
+  }
+
+  .mobileTimelineItem {
+    position: relative;
+  }
+
+  .mobileTimelineButton {
     width: 100%;
     border: 0;
+    padding: 0.54rem 0;
     background: transparent;
-    color: rgb(252 243 226 / 96%);
     text-align: left;
-    cursor: pointer;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 0.78rem;
-    padding: 0.98rem 1rem;
+    cursor: pointer;
   }
 
-  .mobileStep {
-    color: rgb(248 236 216 / 92%);
-    font-family: var(--font-display), "Times New Roman", serif;
-    font-size: 1.12rem;
-    line-height: 1;
-  }
-
-  .mobileTitle {
-    color: rgb(251 243 230 / 96%);
-    font-size: 0.86rem;
-    font-weight: 600;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-  }
-
-  .mobileIndicator {
-    color: rgb(251 239 216 / 94%);
-    font-size: 1.24rem;
-    line-height: 1;
-    font-weight: 500;
-  }
-
-  .mobilePanel {
+  .mobileTimelineDot {
     position: relative;
-    z-index: 2;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.06rem;
+    height: 2.06rem;
+    border: 1px solid rgb(148 126 101 / 32%);
+    border-radius: 999px;
+    background: rgb(245 236 222 / 98%);
+    color: rgb(130 109 87 / 90%);
+    font-family: var(--font-display), "Times New Roman", serif;
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
+  .mobileTimelineText {
     display: grid;
-    gap: 0.5rem;
-    padding: 0 1rem;
-    transition:
-      max-height 520ms cubic-bezier(0.2, 0.84, 0.2, 1),
-      opacity 320ms ease,
-      padding 420ms ease;
+    gap: 0.08rem;
+    min-width: 0;
   }
 
-  .mobileCard[data-active="true"] .mobilePanel {
-    max-height: 16rem;
-    opacity: 1;
-    padding: 0 1rem 1.05rem;
+  .mobileTimelineTitle {
+    color: rgb(66 52 38 / 88%);
+    font-family: var(--font-display), "Times New Roman", serif;
+    font-size: clamp(1.26rem, 4.6vw, 1.8rem);
+    line-height: 0.9;
   }
 
-  .mobileSummary {
-    margin: 0;
-    color: rgb(247 236 216 / 92%);
+  .mobileTimelineHint {
+    color: rgb(120 99 79 / 70%);
+    font-size: 0.82rem;
+    line-height: 1.38;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
+
+  .mobileTimelineAction {
+    color: rgb(140 118 94 / 82%);
+    font-size: 1.08rem;
+    line-height: 1;
+    width: 1.35rem;
+    text-align: center;
+    transition: transform 260ms ease, color 240ms ease;
+  }
+
+  .mobileTimelineItem[data-active="true"] .mobileTimelineDot {
+    color: rgb(44 34 24 / 96%);
+    border-color: rgb(171 148 121 / 54%);
+    box-shadow: 0 5px 14px rgb(66 50 35 / 18%);
+  }
+
+  .mobileTimelineItem[data-active="true"] .mobileTimelineTitle {
+    color: rgb(33 25 18 / 96%);
+  }
+
+  .mobileTimelineItem[data-active="true"] .mobileTimelineHint {
+    color: rgb(85 67 50 / 76%);
+  }
+
+  .mobileTimelineItem[data-active="true"] .mobileTimelineAction {
+    color: rgb(58 44 31 / 88%);
+    transform: rotate(180deg);
+  }
+}
+
+@media (max-width: 680px) {
+  .section {
+    padding: 2.9rem 0.85rem 4rem;
+    background-size: auto, auto, auto, 1.2rem 1.2rem;
+  }
+
+  .header h2 {
+    max-width: 10ch;
+    font-size: clamp(2.05rem, 10.8vw, 3rem);
+  }
+
+  .description {
+    width: min(22rem, 94vw);
+    font-size: 0.95rem;
+  }
+
+  .mobileFeaturedMedia {
+    height: clamp(8.4rem, 34vw, 10.2rem);
+    padding-left: 4rem;
+  }
+
+  .mobileFeaturedMedia h3 {
+    font-size: clamp(1.58rem, 8vw, 2rem);
+  }
+
+  .mobileFeaturedBody {
+    padding: 0.9rem 0.9rem 1rem;
+  }
+
+  .mobileFeaturedSummary {
     font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.45;
   }
 
-  .mobileDetail {
-    margin: 0;
-    color: rgb(230 218 199 / 84%);
-    font-size: 0.88rem;
-    line-height: 1.5;
+  .mobileFeaturedDetail {
+    font-size: 0.9rem;
   }
 
-  .mobileMetric {
-    margin: 0.2rem 0 0;
-    color: rgb(251 217 162 / 94%);
-    font-size: 0.74rem;
-    font-weight: 700;
-    letter-spacing: 0.11em;
-    text-transform: uppercase;
+  .mobileTimelineTitle {
+    font-size: clamp(1.12rem, 6.6vw, 1.5rem);
+  }
+
+  .mobileTimelineHint {
+    font-size: 0.8rem;
   }
 }
 
@@ -470,21 +646,33 @@
   }
 }
 
-@keyframes processArrowWiggleY {
+@keyframes mobileFeaturedReveal {
   0% {
-    transform: translateY(0);
-  }
-
-  28% {
-    transform: translateY(4px);
-  }
-
-  56% {
-    transform: translateY(0);
+    opacity: 0;
+    transform: translateY(14px);
   }
 
   100% {
+    opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes mobileNextWiggle {
+  0% {
+    transform: translateY(-50%);
+  }
+
+  34% {
+    transform: translateY(calc(-50% + 3px));
+  }
+
+  62% {
+    transform: translateY(-50%);
+  }
+
+  100% {
+    transform: translateY(-50%);
   }
 }
 
@@ -494,11 +682,18 @@
   .cardButton::before,
   .compactContent,
   .expandedContent,
-  .navArrow {
+  .navArrow,
+  .mobileFeaturedCard,
+  .mobileTimelineAction,
+  .mobileNextButton {
     transition: none;
   }
 
   .navArrowGlyph {
+    animation: none;
+  }
+
+  .mobileNextButton {
     animation: none;
   }
 }

@@ -85,8 +85,16 @@ Rules:
 - Card expand/collapse should never shift or distort the shared background.
 - First card stays open by default.
 - Desktop interaction: hover/focus expands cards.
-- Mobile interaction: stacked accordion style with tap/press expansion.
+- Mobile interaction: featured active card + vertical timeline rail with tap-to-switch steps.
 - Keep transitions smooth and restrained; avoid abrupt scale effects.
+
+### About Vision Interiors Section Rules
+
+- Use a scroll-stage composition with sticky editorial text at center.
+- Floating image cards should move sequentially: left entry, center rise, right entry.
+- Keep the text block composition stable while images animate around it.
+- Motion should include a subtle mid-scroll dwell (sweetspot) before cards lift out.
+- Maintain warm palette contrast and avoid harsh, high-saturation overlays.
 
 ## Navbar Rules
 
@@ -107,6 +115,8 @@ Rules:
   - `components/pages/home/HomeExperience.module.css`
   - `components/pages/home/OurProcess.tsx`
   - `components/pages/home/OurProcess.module.css`
+  - `components/pages/home/AboutVision.tsx`
+  - `components/pages/home/AboutVision.module.css`
   - `content/content.ts`
   - `app/globals.css`
   - `app/layout.tsx`

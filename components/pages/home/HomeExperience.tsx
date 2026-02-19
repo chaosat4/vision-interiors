@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { HomeContent } from "@/content/content";
 
+import AboutVision from "./AboutVision";
 import OurProcess from "./OurProcess";
 import styles from "./HomeExperience.module.css";
 
@@ -577,6 +578,7 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
       </section>
 
       <OurProcess process={content.process} />
+      <AboutVision about={content.about} />
     </>
   );
 }

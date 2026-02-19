@@ -1,0 +1,301 @@
+.section {
+  position: relative;
+  min-height: 340vh;
+  background:
+    linear-gradient(180deg, rgb(218 206 189 / 98%), rgb(213 201 184 / 94%)),
+    radial-gradient(circle at 16% 20%, rgb(255 248 238 / 36%), transparent 42%),
+    radial-gradient(circle at 82% 78%, rgb(194 170 139 / 20%), transparent 50%);
+}
+
+.stickyStage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.backgroundTexture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 42%, rgb(255 239 214 / 15%), transparent 54%),
+    linear-gradient(180deg, rgb(208 195 177 / 18%), transparent 44%);
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+  width: min(96vw, 112rem);
+  text-align: center;
+  display: grid;
+  justify-items: center;
+}
+
+.eyebrow {
+  margin: 0;
+  color: rgb(72 57 43 / 62%);
+  font-size: clamp(0.76rem, 0.82vw, 1.02rem);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.content h2 {
+  margin: 0.56rem 0 0;
+  color: rgb(25 20 15 / 94%);
+  font-family: var(--font-display), "Times New Roman", serif;
+  font-size: clamp(2.05rem, 3.5vw, 4.6rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: 0.004em;
+  max-width: min(30ch, 94vw);
+  text-wrap: balance;
+}
+
+.description {
+  margin: clamp(3rem, 6vw, 5.1rem) 0 0;
+  width: min(52rem, 92vw);
+  color: rgb(67 53 39 / 68%);
+  font-size: clamp(0.96rem, 1.08vw, 1.24rem);
+  line-height: 1.55;
+}
+
+.cta {
+  margin-top: clamp(1.35rem, 2.4vw, 2.1rem);
+  padding: 0.9rem 1.55rem;
+  border: 1px solid rgb(139 120 98 / 34%);
+  border-radius: 0.2rem;
+  color: rgb(62 49 37 / 84%);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: rgb(229 217 201 / 28%);
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+.cta:hover {
+  background: rgb(236 224 207 / 52%);
+  color: rgb(25 20 15 / 90%);
+}
+
+.floatingLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.floatingCard {
+  position: absolute;
+  width: clamp(13.6rem, 18.6vw, 21.5rem);
+  aspect-ratio: 4 / 5;
+  border-radius: 1.1rem;
+  overflow: hidden;
+  border: 1px solid rgb(251 240 221 / 50%);
+  box-shadow: 0 20px 44px rgb(14 10 8 / 20%);
+  transform: translate(-50%, -50%) translate(var(--card-x, 0), var(--card-y, 0))
+    rotate(var(--card-rotation, 0deg)) scale(var(--card-scale, 1));
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+.floatingImage {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.leftCard {
+  top: 54%;
+  left: 13%;
+  z-index: 2;
+}
+
+.centerCard {
+  top: 58%;
+  left: 50%;
+  width: clamp(12.8rem, 16.6vw, 19rem);
+  z-index: 4;
+}
+
+.rightCard {
+  top: 54%;
+  left: 87%;
+  z-index: 2;
+}
+
+@media (min-width: 1600px) {
+  .content {
+    width: min(96vw, 126rem);
+  }
+
+  .content h2 {
+    font-size: clamp(3.1rem, 3.45vw, 5rem);
+    max-width: 32ch;
+  }
+
+  .description {
+    width: min(56rem, 92vw);
+    font-size: 1.22rem;
+  }
+
+  .floatingCard {
+    width: clamp(16.4rem, 18.6vw, 24rem);
+  }
+
+  .centerCard {
+    width: clamp(15rem, 17.2vw, 21.8rem);
+  }
+}
+
+@media (max-width: 1024px) {
+  .section {
+    min-height: 300vh;
+  }
+
+  .content h2 {
+    font-size: clamp(1.9rem, 5vw, 3.2rem);
+    max-width: 21ch;
+  }
+
+  .description {
+    margin-top: clamp(2.1rem, 8vw, 3.2rem);
+    font-size: 1rem;
+    width: min(40rem, 92vw);
+  }
+
+  .floatingCard {
+    width: clamp(11rem, 27vw, 14.3rem);
+    border-radius: 0.92rem;
+  }
+
+  .centerCard {
+    width: clamp(10.2rem, 24vw, 12.8rem);
+    top: 60%;
+  }
+
+  .leftCard {
+    left: 14%;
+  }
+
+  .rightCard {
+    left: 86%;
+  }
+}
+
+@media (max-width: 680px) {
+  .section {
+    min-height: 220vh;
+  }
+
+  .stickyStage {
+    place-items: start center;
+    padding-inline: 0.8rem;
+    padding-top: clamp(2.2rem, 8vh, 3.3rem);
+  }
+
+  .content {
+    width: min(96vw, 30rem);
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+  }
+
+  .content h2 {
+    font-size: clamp(1.45rem, 6.2vw, 2.2rem);
+    max-width: 24ch;
+    line-height: 0.95;
+  }
+
+  .description {
+    margin-top: 1.35rem;
+    width: min(23rem, 94vw);
+    font-size: 0.95rem;
+  }
+
+  .cta {
+    margin-top: 1rem;
+    font-size: 0.6rem;
+    padding: 0.78rem 1.2rem;
+  }
+
+  .floatingCard {
+    width: clamp(8.6rem, 35vw, 11.6rem);
+  }
+
+  .centerCard {
+    width: clamp(9rem, 37vw, 12.4rem);
+    top: calc(73% - 25px);
+  }
+
+  .leftCard {
+    top: calc(74% - 25px);
+    left: 25%;
+  }
+
+  .rightCard {
+    top: calc(74% - 25px);
+    left: 75%;
+  }
+}
+
+@media (max-width: 460px) {
+  .section {
+    min-height: 215vh;
+  }
+
+  .content h2 {
+    font-size: clamp(1.35rem, 5.9vw, 1.9rem);
+    max-width: 23ch;
+  }
+
+  .description {
+    width: min(21.5rem, 94vw);
+    font-size: 0.9rem;
+  }
+
+  .floatingCard {
+    width: clamp(8.1rem, 35vw, 10.4rem);
+  }
+
+  .centerCard {
+    width: clamp(8.5rem, 38vw, 11.2rem);
+    top: calc(74% - 25px);
+  }
+
+  .leftCard {
+    top: calc(75% - 25px);
+    left: 25%;
+  }
+
+  .rightCard {
+    top: calc(75% - 25px);
+    left: 75%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    min-height: auto;
+  }
+
+  .stickyStage {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    padding: 4.4rem 0 4.8rem;
+  }
+
+  .floatingLayer {
+    display: none;
+  }
+}
