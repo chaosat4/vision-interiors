@@ -78,6 +78,16 @@ Rules:
 - Bottom-left description must remain clearly readable and larger than generic footnote copy.
 - Right rating card should remain prominent enough to read at a glance.
 
+### Our Process Section Rules
+
+- Position directly below hero on homepage.
+- Use one seamless background image across all process cards.
+- Card expand/collapse should never shift or distort the shared background.
+- First card stays open by default.
+- Desktop interaction: hover/focus expands cards.
+- Mobile interaction: stacked accordion style with tap/press expansion.
+- Keep transitions smooth and restrained; avoid abrupt scale effects.
+
 ## Navbar Rules
 
 - Desktop: full nav links + CTA.
@@ -95,6 +105,8 @@ Rules:
 - Main implementation files:
   - `components/pages/home/HomeExperience.tsx`
   - `components/pages/home/HomeExperience.module.css`
+  - `components/pages/home/OurProcess.tsx`
+  - `components/pages/home/OurProcess.module.css`
   - `content/content.ts`
   - `app/globals.css`
   - `app/layout.tsx`

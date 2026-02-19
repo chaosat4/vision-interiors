@@ -340,13 +340,63 @@
   font-size: 0.69rem;
 }
 
+.scrollCue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.95rem, 2.2vw, 1.8rem);
+  z-index: 4;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  color: rgb(246 236 220 / 92%);
+  opacity: 0;
+  filter: blur(8px);
+  transform: translate(-50%, 22px);
+}
+
+.scrollCueLabel {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-shadow: 0 4px 16px rgb(0 0 0 / 24%);
+}
+
+.scrollCueIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  border: 1px solid rgb(247 236 218 / 66%);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgb(32 25 19 / 34%), rgb(22 17 13 / 62%));
+  font-size: 1.14rem;
+  line-height: 1;
+  box-shadow: 0 10px 26px rgb(0 0 0 / 24%);
+  animation: heroScrollWiggle 1.8s ease-in-out infinite;
+}
+
+.page[data-ready="true"] .navbar,
+.page[data-ready="true"] .heroCopy,
+.page[data-ready="true"] .heroDescription,
+.page[data-ready="true"] .ratingCard,
+.page[data-ready="true"] .scrollCue {
+  opacity: 1;
+  filter: blur(0);
+}
+
 .page[data-ready="true"] .navbar,
 .page[data-ready="true"] .heroCopy,
 .page[data-ready="true"] .heroDescription,
 .page[data-ready="true"] .ratingCard {
-  opacity: 1;
-  filter: blur(0);
   transform: translateY(0);
+}
+
+.page[data-ready="true"] .scrollCue {
+  transform: translate(-50%, 0);
 }
 
 .page[data-ready="true"] .navbar {
@@ -367,6 +417,11 @@
 .page[data-ready="true"] .ratingCard {
   transition: opacity 700ms ease 520ms, transform 820ms var(--hero-ease) 520ms,
     filter 700ms ease 520ms;
+}
+
+.page[data-ready="true"] .scrollCue {
+  transition: opacity 700ms ease 640ms, transform 820ms var(--hero-ease) 640ms,
+    filter 700ms ease 640ms;
 }
 
 .splash {
@@ -576,6 +631,22 @@
     text-align: left;
   }
 
+  .scrollCue {
+    bottom: 12.8rem;
+    gap: 0.38rem;
+  }
+
+  .scrollCueLabel {
+    font-size: 0.54rem;
+    letter-spacing: 0.16em;
+  }
+
+  .scrollCueIcon {
+    width: 2.35rem;
+    height: 2.35rem;
+    font-size: 1rem;
+  }
+
   .ratingCard {
     left: 1rem;
     right: 1rem;
@@ -601,6 +672,24 @@
   }
 }
 
+@keyframes heroScrollWiggle {
+  0% {
+    transform: translateY(0);
+  }
+
+  36% {
+    transform: translateY(4px);
+  }
+
+  62% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
 @keyframes heroHeadlineSwap {
   0% {
     opacity: 0;
@@ -620,11 +709,16 @@
   .navbar,
   .heroCopy,
   .heroDescription,
-  .ratingCard {
+  .ratingCard,
+  .scrollCue {
     transition: none;
     transform: none;
     filter: none;
     opacity: 1;
+  }
+
+  .scrollCueIcon {
+    animation: none;
   }
 
   .splash {

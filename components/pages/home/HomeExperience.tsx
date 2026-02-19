@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { HomeContent } from "@/content/content";
 
+import OurProcess from "./OurProcess";
 import styles from "./HomeExperience.module.css";
 
 const SPLASH_STORAGE_KEY = "vision-interiors.splash-seen";
@@ -385,166 +386,197 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
   };
 
   return (
-    <section className={styles.page} data-ready={isHeroReady} id="top">
-      <div aria-hidden className={styles.heroMedia}>
-        <video
-          className={styles.heroVideo}
-          muted
-          preload="metadata"
-          playsInline
-          ref={heroVideoRef}
-        >
-          <source src={content.hero.videoUrl} type="video/mp4" />
-        </video>
-      </div>
-
-      <div aria-hidden className={styles.heroAtmosphere} />
-
-      <header className={styles.navbar}>
-        <a className={styles.brandMark} href="#top">
-          <Image
-            alt="Vision Interiors logo"
-            className={styles.brandLogo}
-            height={155}
-            priority
-            src="/vision-logo.png"
-            width={172}
-          />
-
-          <span className={styles.brandText}>
-            <span>{content.brand.topLine}</span>
-            <span>{content.brand.bottomLine}</span>
-          </span>
-        </a>
-
-        <nav aria-label="Primary" className={styles.navLinks}>
-          {content.navigation.map((item) => (
-            <a href={item.href} key={item.href} onClick={closeMobileMenu}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className={styles.navActions}>
-          <a className={styles.contactButton} href="#contact" onClick={closeMobileMenu}>
-            {content.ctaLabel}
-            <span aria-hidden>→</span>
-          </a>
-
-          <button
-            aria-controls="mobile-primary-nav"
-            aria-expanded={isMobileMenuOpen}
-            aria-label="Toggle navigation menu"
-            className={styles.menuButton}
-            data-open={isMobileMenuOpen}
-            onClick={() => {
-              setIsMobileMenuOpen((currentState) => !currentState);
-            }}
-            type="button"
-          >
-            <span className={styles.menuButtonLine} />
-            <span className={styles.menuButtonLine} />
-            <span className={styles.menuButtonLine} />
-          </button>
-        </div>
-      </header>
-
-      <div className={styles.mobileMenu} data-open={isMobileMenuOpen}>
-        <nav aria-label="Mobile primary" className={styles.mobileMenuPanel} id="mobile-primary-nav">
-          {content.navigation.map((item) => (
-            <a href={item.href} key={`mobile-${item.href}`} onClick={closeMobileMenu}>
-              {item.label}
-            </a>
-          ))}
-
-          <a className={styles.mobileContactButton} href="#contact" onClick={closeMobileMenu}>
-            {content.ctaLabel}
-            <span aria-hidden>→</span>
-          </a>
-        </nav>
-      </div>
-
-      <main className={styles.heroCopy}>
-        <h1 className={styles.heroHeadline} key={activeHeadline}>
-          {activeHeadline}
-        </h1>
-
-        <p className={styles.heroSubheading}>{content.hero.subheading}</p>
-      </main>
-
-      <p className={styles.heroDescription}>{content.hero.description}</p>
-
-      <aside aria-label="Studio rating" className={styles.ratingCard}>
-        <div className={styles.ratingHeader}>
-          <p className={styles.stars} aria-hidden>
-            ★★★★☆
-          </p>
-
-          <p className={styles.googleBadge}>
-            <svg
-              aria-hidden
-              className={styles.googleIcon}
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M23.49 12.27c0-.79-.07-1.55-.19-2.27H12v4.29h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.88c2.27-2.09 3.54-5.17 3.54-8.65z"
-                fill="#4285f4"
-              />
-              <path
-                d="M12 24c3.24 0 5.96-1.07 7.95-2.91l-3.88-3c-1.08.72-2.46 1.15-4.07 1.15-3.13 0-5.78-2.11-6.72-4.95H1.27v3.09A12 12 0 0 0 12 24z"
-                fill="#34a853"
-              />
-              <path
-                d="M5.28 14.29A7.2 7.2 0 0 1 4.91 12c0-.8.14-1.57.37-2.29V6.62H1.27A12 12 0 0 0 0 12c0 1.94.46 3.78 1.27 5.38l4.01-3.09z"
-                fill="#fbbc05"
-              />
-              <path
-                d="M12 4.77c1.76 0 3.34.61 4.58 1.8l3.43-3.43C17.95 1.19 15.24 0 12 0A12 12 0 0 0 1.27 6.62l4.01 3.09C6.22 6.88 8.87 4.77 12 4.77z"
-                fill="#ea4335"
-              />
-            </svg>
-            Google
-          </p>
-        </div>
-
-        <div className={styles.ratingRow}>
-          <span className={styles.ratingScore}>{content.stat.score}</span>
-
-          <div>
-            <p className={styles.ratingLabel}>{content.stat.label}</p>
-            <p className={styles.ratingDetail}>{content.stat.detail}</p>
-          </div>
-        </div>
-      </aside>
-
-      <div
-        aria-hidden
-        className={styles.splash}
-        data-phase={phase}
-        style={splashStyle}
-      >
-        <div className={styles.splashBackdrop} />
-
-        <div className={styles.splashWindow}>
+    <>
+      <section className={styles.page} data-ready={isHeroReady} id="top">
+        <div aria-hidden className={styles.heroMedia}>
           <video
-            className={styles.splashVideo}
+            className={styles.heroVideo}
             muted
+            preload="metadata"
             playsInline
-            preload="auto"
-            ref={splashVideoRef}
+            ref={heroVideoRef}
           >
             <source src={content.hero.videoUrl} type="video/mp4" />
           </video>
         </div>
 
-        <p className={styles.splashWordTop} ref={splashWordTopRef}>
-          {content.brand.topLine}
-        </p>
+        <div aria-hidden className={styles.heroAtmosphere} />
 
-        <p className={styles.splashWordBottom} ref={splashWordBottomRef}>
-          {content.brand.bottomLine}
-        </p>
-      </div>
-    </section>
+        <header className={styles.navbar}>
+          <a className={styles.brandMark} href="#top">
+            <Image
+              alt="Vision Interiors logo"
+              className={styles.brandLogo}
+              height={155}
+              priority
+              src="/vision-logo.png"
+              width={172}
+            />
+
+            <span className={styles.brandText}>
+              <span>{content.brand.topLine}</span>
+              <span>{content.brand.bottomLine}</span>
+            </span>
+          </a>
+
+          <nav aria-label="Primary" className={styles.navLinks}>
+            {content.navigation.map((item) => (
+              <a href={item.href} key={item.href} onClick={closeMobileMenu}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className={styles.navActions}>
+            <a
+              className={styles.contactButton}
+              href="#contact"
+              onClick={closeMobileMenu}
+            >
+              {content.ctaLabel}
+              <span aria-hidden>→</span>
+            </a>
+
+            <button
+              aria-controls="mobile-primary-nav"
+              aria-expanded={isMobileMenuOpen}
+              aria-label="Toggle navigation menu"
+              className={styles.menuButton}
+              data-open={isMobileMenuOpen}
+              onClick={() => {
+                setIsMobileMenuOpen((currentState) => !currentState);
+              }}
+              type="button"
+            >
+              <span className={styles.menuButtonLine} />
+              <span className={styles.menuButtonLine} />
+              <span className={styles.menuButtonLine} />
+            </button>
+          </div>
+        </header>
+
+        <div className={styles.mobileMenu} data-open={isMobileMenuOpen}>
+          <nav
+            aria-label="Mobile primary"
+            className={styles.mobileMenuPanel}
+            id="mobile-primary-nav"
+          >
+            {content.navigation.map((item) => (
+              <a
+                href={item.href}
+                key={`mobile-${item.href}`}
+                onClick={closeMobileMenu}
+              >
+                {item.label}
+              </a>
+            ))}
+
+            <a
+              className={styles.mobileContactButton}
+              href="#contact"
+              onClick={closeMobileMenu}
+            >
+              {content.ctaLabel}
+              <span aria-hidden>→</span>
+            </a>
+          </nav>
+        </div>
+
+        <main className={styles.heroCopy}>
+          <h1 className={styles.heroHeadline} key={activeHeadline}>
+            {activeHeadline}
+          </h1>
+
+          <p className={styles.heroSubheading}>{content.hero.subheading}</p>
+        </main>
+
+        <p className={styles.heroDescription}>{content.hero.description}</p>
+
+        <aside aria-label="Studio rating" className={styles.ratingCard}>
+          <div className={styles.ratingHeader}>
+            <p className={styles.stars} aria-hidden>
+              ★★★★☆
+            </p>
+
+            <p className={styles.googleBadge}>
+              <svg
+                aria-hidden
+                className={styles.googleIcon}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M23.49 12.27c0-.79-.07-1.55-.19-2.27H12v4.29h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.88c2.27-2.09 3.54-5.17 3.54-8.65z"
+                  fill="#4285f4"
+                />
+                <path
+                  d="M12 24c3.24 0 5.96-1.07 7.95-2.91l-3.88-3c-1.08.72-2.46 1.15-4.07 1.15-3.13 0-5.78-2.11-6.72-4.95H1.27v3.09A12 12 0 0 0 12 24z"
+                  fill="#34a853"
+                />
+                <path
+                  d="M5.28 14.29A7.2 7.2 0 0 1 4.91 12c0-.8.14-1.57.37-2.29V6.62H1.27A12 12 0 0 0 0 12c0 1.94.46 3.78 1.27 5.38l4.01-3.09z"
+                  fill="#fbbc05"
+                />
+                <path
+                  d="M12 4.77c1.76 0 3.34.61 4.58 1.8l3.43-3.43C17.95 1.19 15.24 0 12 0A12 12 0 0 0 1.27 6.62l4.01 3.09C6.22 6.88 8.87 4.77 12 4.77z"
+                  fill="#ea4335"
+                />
+              </svg>
+              Google
+            </p>
+          </div>
+
+          <div className={styles.ratingRow}>
+            <span className={styles.ratingScore}>{content.stat.score}</span>
+
+            <div>
+              <p className={styles.ratingLabel}>{content.stat.label}</p>
+              <p className={styles.ratingDetail}>{content.stat.detail}</p>
+            </div>
+          </div>
+        </aside>
+
+        <a
+          aria-label="Scroll to our process"
+          className={styles.scrollCue}
+          href="#process"
+        >
+          <span className={styles.scrollCueLabel}>Scroll</span>
+          <span aria-hidden className={styles.scrollCueIcon}>
+            ↓
+          </span>
+        </a>
+
+        <div
+          aria-hidden
+          className={styles.splash}
+          data-phase={phase}
+          style={splashStyle}
+        >
+          <div className={styles.splashBackdrop} />
+
+          <div className={styles.splashWindow}>
+            <video
+              className={styles.splashVideo}
+              muted
+              playsInline
+              preload="auto"
+              ref={splashVideoRef}
+            >
+              <source src={content.hero.videoUrl} type="video/mp4" />
+            </video>
+          </div>
+
+          <p className={styles.splashWordTop} ref={splashWordTopRef}>
+            {content.brand.topLine}
+          </p>
+
+          <p className={styles.splashWordBottom} ref={splashWordBottomRef}>
+            {content.brand.bottomLine}
+          </p>
+        </div>
+      </section>
+
+      <OurProcess process={content.process} />
+    </>
   );
 }
