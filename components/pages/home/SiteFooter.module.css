@@ -117,8 +117,8 @@
 }
 
 .bottomRow {
-  display: grid;
-  grid-template-columns: auto auto minmax(0, auto) minmax(0, auto);
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem 1.5rem;
@@ -188,8 +188,8 @@
   }
 
   .bottomRow {
-    grid-template-columns: 1fr;
-    justify-items: start;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0.8rem;
   }
 

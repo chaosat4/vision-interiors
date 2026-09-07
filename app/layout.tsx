@@ -15,6 +15,9 @@ const bodyFont = Manrope({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://visioninteriors.org.in",
+  ),
   title: "Vision Interiors",
   description: "Architecture and interior design studio.",
   icons: {

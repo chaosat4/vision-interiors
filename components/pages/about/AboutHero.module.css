@@ -1,0 +1,196 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background-color: #141312;
+  color: rgb(248 238 222 / 96%);
+}
+
+.media,
+.atmosphere {
+  position: absolute;
+  inset: 0;
+}
+
+.media {
+  z-index: 0;
+  animation: imageReveal 1600ms cubic-bezier(0.2, 0.84, 0.2, 1) both;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center 54%;
+  filter: saturate(76%) contrast(102%);
+  transform: scale(1.025);
+  animation: imageSettle 1800ms cubic-bezier(0.2, 0.84, 0.2, 1) both;
+}
+
+.atmosphere {
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(16 13 10 / 50%) 0%, rgb(15 12 9 / 16%) 42%, rgb(10 8 6 / 78%) 100%),
+    linear-gradient(90deg, rgb(10 8 6 / 54%) 0%, transparent 58%),
+    radial-gradient(circle at 78% 34%, rgb(224 188 138 / 14%), transparent 45%);
+}
+
+.copy {
+  position: absolute;
+  z-index: 2;
+  left: clamp(1.2rem, 5vw, 4.6rem);
+  bottom: clamp(6.8rem, 14vh, 9.5rem);
+  width: min(74rem, calc(100vw - 2.4rem));
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: rgb(231 211 181 / 78%);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: copyReveal 760ms ease 300ms forwards;
+}
+
+.copy h1 {
+  max-width: 13ch;
+  margin: 0;
+  color: rgb(250 240 224 / 96%);
+  font-family: var(--font-display), "Times New Roman", serif;
+  font-size: clamp(3.2rem, 7.8vw, 7.9rem);
+  font-weight: 500;
+  line-height: 0.88;
+  letter-spacing: 0.004em;
+  text-wrap: balance;
+  text-shadow: 0 12px 42px rgb(0 0 0 / 24%);
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(24px);
+  animation: copyReveal 1000ms cubic-bezier(0.2, 0.84, 0.2, 1) 430ms forwards;
+}
+
+.description {
+  max-width: 44rem;
+  margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+  color: rgb(239 226 206 / 84%);
+  font-size: clamp(0.92rem, 1.08vw, 1.12rem);
+  line-height: 1.65;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: copyReveal 820ms ease 650ms forwards;
+}
+
+.scrollCue {
+  position: absolute;
+  z-index: 2;
+  right: clamp(1.2rem, 4vw, 3.6rem);
+  bottom: clamp(2rem, 4vw, 3.2rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: rgb(239 226 206 / 80%);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0;
+  animation: copyReveal 760ms ease 820ms forwards;
+}
+
+.scrollArrow {
+  display: grid;
+  width: 2.7rem;
+  height: 2.7rem;
+  place-items: center;
+  border: 1px solid rgb(239 226 206 / 42%);
+  border-radius: 999px;
+  transition: background-color 240ms ease, color 240ms ease, transform 280ms ease;
+}
+
+.scrollCue:hover .scrollArrow {
+  background-color: rgb(239 226 206 / 92%);
+  color: rgb(18 16 13 / 96%);
+  transform: translateY(3px);
+}
+
+.index {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: clamp(1.2rem, 2.4vw, 2rem);
+  margin: 0;
+  color: rgb(239 226 206 / 50%);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%);
+}
+
+@keyframes imageReveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes imageSettle {
+  from { transform: scale(1.08); }
+  to { transform: scale(1.025); }
+}
+
+@keyframes copyReveal {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .copy {
+    bottom: 7.2rem;
+  }
+
+  .copy h1 {
+    max-width: 12ch;
+    font-size: clamp(2.9rem, 14vw, 4.7rem);
+    line-height: 0.9;
+  }
+
+  .description {
+    max-width: min(32rem, calc(100vw - 3rem));
+    font-size: 0.92rem;
+  }
+
+  .scrollCue {
+    right: auto;
+    left: 1.2rem;
+    bottom: 1.8rem;
+  }
+
+  .index {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media,
+  .image,
+  .eyebrow,
+  .copy h1,
+  .description,
+  .scrollCue {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .scrollArrow {
+    transition: none;
+  }
+}

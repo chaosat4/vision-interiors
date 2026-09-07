@@ -1,0 +1,17 @@
+{
+  "title": "Blue Hour Gallery",
+  "category": "commercial",
+  "location": "Mumbai",
+  "year": "2022",
+  "area": "8,400 sq. ft.",
+  "brief": "A retail gallery conceived as a dramatic sequence of framed objects, filtered light, and quiet pauses.",
+  "overview": [
+    "The gallery uses compression and release to guide visitors through the collection. Darkened thresholds lead to brighter display rooms, giving every object a deliberate visual field.",
+    "A restrained envelope of mineral finishes lets merchandise carry the color, while integrated lighting and concealed services preserve the architectural clarity of each room."
+  ],
+  "services": ["Retail Design", "Interior Architecture", "Lighting Direction"],
+  "featured": false,
+  "layout": "wide",
+  "order": 60,
+  "coverImage": "00-blue-facade-at-dusk.jpg"
+}

@@ -1,0 +1,17 @@
+{
+  "title": "Meridian Workhouse",
+  "category": "commercial",
+  "location": "Financial District",
+  "year": "2024",
+  "area": "14,200 sq. ft.",
+  "brief": "A flexible workplace shaped around daylight, focused collaboration, and a distinctly human material palette.",
+  "overview": [
+    "Meridian replaces the conventional office corridor with a sequence of social rooms, quiet work zones, and planted thresholds. Teams can move between different modes of work without losing visual connection.",
+    "Acoustic surfaces, warm timber, and precise lighting bring a domestic calm to the workplace. Modular planning allows the organization to evolve without compromising the original spatial idea."
+  ],
+  "services": ["Workplace Strategy", "Interior Design", "Furniture Curation"],
+  "featured": true,
+  "layout": "feature",
+  "order": 50,
+  "coverImage": "00-perforated-screen-facade.jpg"
+}

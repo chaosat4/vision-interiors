@@ -1,0 +1,17 @@
+{
+  "title": "Verdant Courtyard Hotel",
+  "category": "hotel-banquets",
+  "location": "Goa",
+  "year": "2023",
+  "area": "32,000 sq. ft.",
+  "brief": "A garden-led boutique hotel where shaded thresholds and tactile rooms turn arrival into a slow ritual.",
+  "overview": [
+    "The hotel is organized around a series of planted courts that temper the tropical climate and create distinct moments of arrival. Public rooms remain visually connected while each retains its own atmosphere.",
+    "Locally inspired textures, woven details, and an earthy palette give the interiors a strong sense of place. The design prioritizes ease of maintenance without losing its crafted character."
+  ],
+  "services": ["Architecture", "Hospitality Interiors", "Art Direction"],
+  "featured": true,
+  "layout": "standard",
+  "order": 40,
+  "coverImage": "00-plant-filled-bedroom.jpg"
+}

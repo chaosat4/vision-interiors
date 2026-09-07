@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# local agent and design notes
+/AGENTS.md
+/THEME.md
+
 # debug
 npm-debug.log*
 yarn-debug.log*

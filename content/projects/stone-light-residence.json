@@ -1,0 +1,17 @@
+{
+  "title": "Stone + Light Residence",
+  "category": "residential",
+  "location": "Jubilee Hills",
+  "year": "2024",
+  "area": "5,200 sq. ft.",
+  "brief": "A layered home where stone, soft timber tones, and open transitions create a calm daily rhythm.",
+  "overview": [
+    "Built around changing light, this residence pairs grounded stone planes with lighter internal volumes. Openings are positioned to frame landscape rather than expose the home, creating a sense of retreat within the city.",
+    "Inside, custom joinery and muted upholstery soften the architectural shell. A consistent palette moves across rooms so the experience feels continuous without becoming uniform."
+  ],
+  "services": ["Architecture", "Interior Design", "Turnkey Execution"],
+  "featured": true,
+  "layout": "portrait",
+  "order": 20,
+  "coverImage": "00-timber-clad-house-exterior.jpg"
+}

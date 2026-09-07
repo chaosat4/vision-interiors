@@ -1,0 +1,17 @@
+{
+  "title": "Project Name",
+  "category": "residential",
+  "location": "City or Area",
+  "year": "2026",
+  "area": "0 sq. ft.",
+  "brief": "One short sentence introducing the project.",
+  "overview": [
+    "First paragraph describing the design idea and spatial approach.",
+    "Second paragraph describing materials, atmosphere, or execution."
+  ],
+  "services": ["Interior Design", "Turnkey Execution"],
+  "featured": false,
+  "layout": "standard",
+  "order": 100,
+  "coverImage": "00-project-cover.jpg"
+}

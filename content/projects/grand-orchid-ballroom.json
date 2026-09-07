@@ -1,0 +1,17 @@
+{
+  "title": "Grand Orchid Ballroom",
+  "category": "hotel-banquets",
+  "location": "New Delhi",
+  "year": "2023",
+  "area": "18,500 sq. ft.",
+  "brief": "A ceremonial banquet interior balancing generous scale with warmth, clarity, and effortless guest movement.",
+  "overview": [
+    "The ballroom was planned as a flexible hospitality setting capable of hosting celebrations at several scales. Layered ceilings and carefully placed lighting create intimacy without diminishing the room's sense of occasion.",
+    "Durable materials are composed with a residential softness: deep green upholstery, bronze-toned detailing, and warm indirect light give the venue a recognizable identity throughout the day."
+  ],
+  "services": ["Interior Design", "Lighting Direction", "Turnkey Execution"],
+  "featured": true,
+  "layout": "wide",
+  "order": 30,
+  "coverImage": "00-green-velvet-dining-room.jpg"
+}

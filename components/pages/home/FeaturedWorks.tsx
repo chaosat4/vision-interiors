@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import type { FeaturedWorksContent } from "@/content/content";
+import type { FeaturedWorksContent } from "@/lib/projects";
 
 import styles from "./FeaturedWorks.module.css";
 
@@ -160,14 +161,18 @@ export default function FeaturedWorks({ featuredWorks }: FeaturedWorksProps) {
         return;
       }
 
-      event.preventDefault();
-
       const currentX = track.scrollLeft;
       const baseX = wheelFrameRef.current ? targetScrollLeftRef.current : currentX;
-
-      targetScrollLeftRef.current = clampScrollX(
+      const nextX = clampScrollX(
         baseX + dominantDelta * WHEEL_SCROLL_MULTIPLIER,
       );
+
+      if (Math.abs(nextX - baseX) < 0.25) {
+        return;
+      }
+
+      event.preventDefault();
+      targetScrollLeftRef.current = nextX;
 
       startWheelAnimation();
     },
@@ -241,7 +246,13 @@ export default function FeaturedWorks({ featuredWorks }: FeaturedWorksProps) {
               } as CSSProperties;
 
               return (
-                <article className={styles.card} key={item.slug} style={cardStyle}>
+                <Link
+                  aria-label={`View project: ${item.title}`}
+                  className={styles.card}
+                  href={item.href}
+                  key={item.slug}
+                  style={cardStyle}
+                >
                   <div aria-label={item.title} className={styles.media} role="img" style={mediaStyle} />
 
                   <div className={styles.cardFooter}>
@@ -253,7 +264,7 @@ export default function FeaturedWorks({ featuredWorks }: FeaturedWorksProps) {
                       <span>{item.year}</span>
                     </div>
                   </div>
-                </article>
+                </Link>
               );
             })}
           </div>

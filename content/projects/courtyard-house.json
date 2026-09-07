@@ -1,0 +1,17 @@
+{
+  "title": "Courtyard House",
+  "category": "residential",
+  "location": "Banjara Hills",
+  "year": "2024",
+  "area": "6,800 sq. ft.",
+  "brief": "A contemporary family residence organized around water, daylight, and a quiet internal garden.",
+  "overview": [
+    "The house is conceived as a sequence of shaded rooms gathered around a planted courtyard. Long views across the center bring daylight deep into the plan while preserving privacy from the street.",
+    "Natural stone, warm timber, and softly textured plaster establish a restrained material language. Each space is precise in proportion but relaxed in use, allowing the home to shift easily between intimate family life and larger gatherings."
+  ],
+  "services": ["Architecture", "Interior Design", "Styling"],
+  "featured": true,
+  "layout": "feature",
+  "order": 10,
+  "coverImage": "00-poolside-terrace-lounge.jpg"
+}

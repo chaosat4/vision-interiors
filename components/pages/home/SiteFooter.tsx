@@ -6,12 +6,16 @@ import styles from "./SiteFooter.module.css";
 
 type SiteFooterProps = {
   footer: FooterContent;
+  linkBase?: string;
 };
 
-export default function SiteFooter({ footer }: SiteFooterProps) {
+export default function SiteFooter({ footer, linkBase = "" }: SiteFooterProps) {
   const imageStyle = {
     backgroundImage: `url(${footer.imageUrl})`,
   } as CSSProperties;
+
+  const resolveHref = (href: string) =>
+    href.startsWith("#") ? `${linkBase}${href}` : href;
 
   return (
     <footer className={styles.footer} id="footer">
@@ -30,7 +34,7 @@ export default function SiteFooter({ footer }: SiteFooterProps) {
             <p className={styles.heading}>{footer.navigationHeading}</p>
             <div className={styles.navLinks}>
               {footer.navigationLinks.map((link) => (
-                <a href={link.href} key={`footer-nav-${link.label}`}>
+                <a href={resolveHref(link.href)} key={`footer-nav-${link.label}`}>
                   {link.label}
                 </a>
               ))}
@@ -51,21 +55,25 @@ export default function SiteFooter({ footer }: SiteFooterProps) {
           <p>{footer.copyright}</p>
           <p>{footer.statusText}</p>
 
-          <div className={styles.legalLinks}>
-            {footer.legalLinks.map((link) => (
-              <a href={link.href} key={`footer-legal-${link.label}`}>
-                {link.label}
-              </a>
-            ))}
-          </div>
+          {footer.legalLinks.length > 0 ? (
+            <div className={styles.legalLinks}>
+              {footer.legalLinks.map((link) => (
+                <a href={link.href} key={`footer-legal-${link.label}`}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          ) : null}
 
-          <div className={styles.socialLinks}>
-            {footer.socialLinks.map((link) => (
-              <a href={link.href} key={`footer-social-${link.label}`}>
-                {link.label}
-              </a>
-            ))}
-          </div>
+          {footer.socialLinks.length > 0 ? (
+            <div className={styles.socialLinks}>
+              {footer.socialLinks.map((link) => (
+                <a href={link.href} key={`footer-social-${link.label}`}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </footer>

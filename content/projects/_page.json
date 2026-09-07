@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "title": "Projects | Vision Interiors",
+    "description": "Explore residential, hotel and banquet, and commercial projects by Vision Interiors."
+  },
+  "eyebrow": "Selected Work",
+  "heading": "Spaces With A Point Of View",
+  "description": "A considered collection of residences, hospitality environments, and commercial spaces—each shaped around its own people, purpose, and sense of place.",
+  "collectionLabel": "Project Collection",
+  "filtersLabel": "Filter projects by category",
+  "emptyMessage": "No projects are available in this category yet.",
+  "filters": [
+    { "slug": "all", "label": "All" },
+    { "slug": "residential", "label": "Residential" },
+    { "slug": "hotel-banquets", "label": "Hotel & Banquets" },
+    { "slug": "commercial", "label": "Commercial" }
+  ],
+  "featuredWorks": {
+    "eyebrow": "Curated Portfolio",
+    "heading": "Featured Works",
+    "description": "A selection of residential, hospitality, and commercial projects where material warmth, spatial clarity, and timeless proportion come together."
+  }
+}
