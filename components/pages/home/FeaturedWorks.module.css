@@ -13,7 +13,30 @@
     radial-gradient(circle at 84% 72%, rgb(67 51 33 / 14%), transparent 58%);
 }
 
+.section::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 88%, rgb(214 184 140 / 10%), transparent 34%),
+    radial-gradient(circle at 88% 16%, rgb(214 184 140 / 8%), transparent 38%),
+    repeating-linear-gradient(
+      -31deg,
+      transparent 0 32px,
+      rgb(232 210 180 / 4%) 32px 33px
+    ),
+    repeating-linear-gradient(
+      31deg,
+      transparent 0 56px,
+      rgb(232 210 180 / 3%) 56px 57px
+    );
+  opacity: 0.86;
+}
+
 .inner {
+  position: relative;
+  z-index: 1;
   width: min(98%, 1820px);
   margin: 0 auto;
   display: grid;

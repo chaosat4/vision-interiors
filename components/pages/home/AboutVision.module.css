@@ -93,7 +93,7 @@
 
 .floatingCard {
   position: absolute;
-  width: clamp(13.6rem, 18.6vw, 21.5rem);
+  width: clamp(17.2rem, 24vw, 27.8rem);
   aspect-ratio: 4 / 5;
   border-radius: 1.1rem;
   overflow: hidden;
@@ -122,7 +122,7 @@
 .centerCard {
   top: 58%;
   left: 50%;
-  width: clamp(12.8rem, 16.6vw, 19rem);
+  width: clamp(16.1rem, 22vw, 25.4rem);
   z-index: 4;
 }
 
@@ -148,11 +148,11 @@
   }
 
   .floatingCard {
-    width: clamp(16.4rem, 18.6vw, 24rem);
+    width: clamp(20.2rem, 22vw, 30.5rem);
   }
 
   .centerCard {
-    width: clamp(15rem, 17.2vw, 21.8rem);
+    width: clamp(18.8rem, 20.8vw, 28.4rem);
   }
 }
 
@@ -173,12 +173,12 @@
   }
 
   .floatingCard {
-    width: clamp(11rem, 27vw, 14.3rem);
+    width: clamp(14rem, 34vw, 18.4rem);
     border-radius: 0.92rem;
   }
 
   .centerCard {
-    width: clamp(10.2rem, 24vw, 12.8rem);
+    width: clamp(13.2rem, 32vw, 17.2rem);
     top: 60%;
   }
 
@@ -229,11 +229,11 @@
   }
 
   .floatingCard {
-    width: clamp(8.6rem, 35vw, 11.6rem);
+    width: clamp(11.4rem, 45vw, 15.6rem);
   }
 
   .centerCard {
-    width: clamp(9rem, 37vw, 12.4rem);
+    width: clamp(12.2rem, 48vw, 17.4rem);
     top: calc(73% - 25px);
   }
 
@@ -264,11 +264,11 @@
   }
 
   .floatingCard {
-    width: clamp(8.1rem, 35vw, 10.4rem);
+    width: clamp(10.4rem, 43vw, 14rem);
   }
 
   .centerCard {
-    width: clamp(8.5rem, 38vw, 11.2rem);
+    width: clamp(11.2rem, 47vw, 15.4rem);
     top: calc(74% - 25px);
   }
 

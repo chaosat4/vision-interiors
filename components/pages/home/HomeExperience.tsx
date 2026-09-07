@@ -7,8 +7,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { HomeContent } from "@/content/content";
 
 import AboutVision from "./AboutVision";
+import ArchitecturalCta from "./ArchitecturalCta";
+import ClientTestimonials from "./ClientTestimonials";
 import FeaturedWorks from "./FeaturedWorks";
+import MeetTheTeam from "./MeetTheTeam";
 import OurProcess from "./OurProcess";
+import SiteFooter from "./SiteFooter";
 import styles from "./HomeExperience.module.css";
 
 const SPLASH_STORAGE_KEY = "vision-interiors.splash-seen";
@@ -648,6 +652,10 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
       <OurProcess process={content.process} />
       <AboutVision about={content.about} />
       <FeaturedWorks featuredWorks={content.featuredWorks} />
+      <MeetTheTeam team={content.team} />
+      <ClientTestimonials testimonials={content.testimonials} />
+      <ArchitecturalCta cta={content.finalCta} />
+      <SiteFooter footer={content.footer} />
     </>
   );
 }

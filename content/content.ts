@@ -59,6 +59,65 @@ export type FeaturedWorksContent = {
   items: FeaturedWorkItem[];
 };
 
+export type TeamMember = {
+  slug: string;
+  role: string;
+  name: string;
+  imageUrl: string;
+  imageAlt: string;
+};
+
+export type TeamContent = {
+  eyebrow: string;
+  heading: string;
+  description: string;
+  members: TeamMember[];
+};
+
+export type TestimonialItem = {
+  slug: string;
+  clientName: string;
+  projectName: string;
+  role: string;
+  quotePrimary: string;
+  quoteSecondary: string;
+  personImageUrl: string;
+  personImageAlt: string;
+  projectImageUrl: string;
+  projectImageAlt: string;
+};
+
+export type TestimonialsContent = {
+  heading: string;
+  items: TestimonialItem[];
+};
+
+export type CtaContent = {
+  eyebrow: string;
+  heading: string;
+  description: string;
+  label: string;
+  href: string;
+};
+
+export type FooterLink = {
+  label: string;
+  href: string;
+};
+
+export type FooterContent = {
+  imageUrl: string;
+  imageAlt: string;
+  navigationHeading: string;
+  navigationLinks: FooterLink[];
+  infoHeading: string;
+  infoLines: string[];
+  legalLinks: FooterLink[];
+  socialLinks: FooterLink[];
+  copyright: string;
+  statusText: string;
+};
+
 export type HomeContent = {
   brand: {
     topLine: string;
@@ -75,6 +134,10 @@ export type HomeContent = {
   };
   process: ProcessContent;
   about: AboutContent;
+  team: TeamContent;
+  testimonials: TestimonialsContent;
+  finalCta: CtaContent;
+  footer: FooterContent;
   featuredWorks: FeaturedWorksContent;
   stat: HeroStat;
 };
@@ -204,6 +267,173 @@ export const homeContent: HomeContent = {
         alt: "Interior courtyard opening framed by architecture.",
       },
     ],
+  },
+  team: {
+    eyebrow: "Meet The Team",
+    heading: "Meet The Team Behind The Vision",
+    description:
+      "A multidisciplinary group of architects and interior specialists shaping each project with material intelligence, planning precision, and a refined design language.",
+    members: [
+      {
+        slug: "johnny-hyde",
+        role: "Director",
+        name: "Johnny Hyde",
+        imageUrl:
+          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
+        imageAlt: "Portrait of director Johnny Hyde.",
+      },
+      {
+        slug: "poppie-kenneally",
+        role: "Director - Interior Designer",
+        name: "Poppie Kenneally",
+        imageUrl:
+          "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80",
+        imageAlt: "Portrait of interior design director Poppie Kenneally.",
+      },
+      {
+        slug: "daniel-hickey",
+        role: "Associate Architect",
+        name: "Daniel Hickey",
+        imageUrl:
+          "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=1200&q=80",
+        imageAlt: "Portrait of associate architect Daniel Hickey.",
+      },
+      {
+        slug: "nick-tan",
+        role: "Architect",
+        name: "Nick Tan",
+        imageUrl:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80",
+        imageAlt: "Portrait of architect Nick Tan.",
+      },
+      {
+        slug: "rachael-mellick",
+        role: "Architect",
+        name: "Rachael Mellick",
+        imageUrl:
+          "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80",
+        imageAlt: "Portrait of architect Rachael Mellick.",
+      },
+      {
+        slug: "laura-sheriff",
+        role: "Architect",
+        name: "Laura Sheriff",
+        imageUrl:
+          "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=80",
+        imageAlt: "Portrait of architect Laura Sheriff.",
+      },
+      {
+        slug: "hamish-maguire",
+        role: "Architect",
+        name: "Hamish Maguire",
+        imageUrl:
+          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80",
+        imageAlt: "Portrait of architect Hamish Maguire.",
+      },
+      {
+        slug: "alexandra-green",
+        role: "Graduate of Architecture / Interior Designer",
+        name: "Alexandra Green",
+        imageUrl:
+          "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&w=1200&q=80",
+        imageAlt: "Portrait of graduate architect Alexandra Green.",
+      },
+    ],
+  },
+  testimonials: {
+    heading: "Hear from our client",
+    items: [
+      {
+        slug: "myrtle-pool-house",
+        clientName: "Owen",
+        projectName: "Myrtle Pool House",
+        role: "Client",
+        quotePrimary:
+          "Obey Studio approached our project with remarkable curiosity and patience. Rather than rushing into design, they immersed themselves in the purpose, audience, and long-term goals of our brand.",
+        quoteSecondary:
+          "The collaboration felt like a shared journey. Every idea was explored, improved, and thoughtfully refined. Their ability to blend innovation with practicality is rare, and the end product reflects that balance beautifully.",
+        personImageUrl:
+          "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=900&q=80",
+        personImageAlt: "Portrait of client Owen.",
+        projectImageUrl:
+          "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=2200&q=80",
+        projectImageAlt: "Contemporary pool house with open pavilion and lawn.",
+      },
+      {
+        slug: "lakeside-villa",
+        clientName: "Aanya",
+        projectName: "Lakeside Villa",
+        role: "Client",
+        quotePrimary:
+          "From the first workshop to final styling, the team made every decision feel clear and intentional. They listened deeply and translated our lifestyle into spatial choices that feel natural every day.",
+        quoteSecondary:
+          "Execution stayed on track because details were never left vague. Material selections, site coordination, and final handover were handled with confidence and quiet precision.",
+        personImageUrl:
+          "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80",
+        personImageAlt: "Portrait of client Aanya.",
+        projectImageUrl:
+          "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2200&q=80",
+        projectImageAlt: "Modern villa with large glass walls and landscaped garden.",
+      },
+      {
+        slug: "ridge-courtyard-home",
+        clientName: "Vikram",
+        projectName: "Ridge Courtyard Home",
+        role: "Client",
+        quotePrimary:
+          "What impressed us most was the studio's ability to hold both big-picture clarity and microscopic attention to detail. Nothing felt generic; every space had intent and emotional weight.",
+        quoteSecondary:
+          "They balanced warmth, durability, and elegance without compromise. Living in the home now, we still discover thoughtful moments that make daily life more effortless and more beautiful.",
+        personImageUrl:
+          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80",
+        personImageAlt: "Portrait of client Vikram.",
+        projectImageUrl:
+          "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=2200&q=80",
+        projectImageAlt: "Minimal residence with terrace and layered exterior volumes.",
+      },
+    ],
+  },
+  finalCta: {
+    eyebrow: "Begin Your Project",
+    heading: "Let's Make Something Remarkable Together",
+    description:
+      "Share your vision and we'll map the spatial direction, material language, and execution pathway into one cohesive design journey.",
+    label: "Let's Start Today",
+    href: "#top",
+  },
+  footer: {
+    imageUrl:
+      "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?auto=format&fit=crop&w=900&q=80",
+    imageAlt: "Interior architecture with vaulted beams and sculpted columns.",
+    navigationHeading: "Navigation",
+    navigationLinks: [
+      { label: "Home", href: "#top" },
+      { label: "Works", href: "#works" },
+      { label: "In Progress", href: "#process" },
+      { label: "Archive", href: "#works" },
+      { label: "Studio", href: "#about" },
+      { label: "Process", href: "#process" },
+      { label: "Gallery", href: "#works" },
+      { label: "Contact Us", href: "#contact" },
+    ],
+    infoHeading: "Info",
+    infoLines: [
+      "A: 101 Days Rd, Grange QLD 4051",
+      "E: info@obeystudio.com.au",
+      "P: 07 3110 1031",
+      "H: Monday to Friday, 8:30am - 5:00pm",
+    ],
+    legalLinks: [
+      { label: "Terms & Conditions", href: "#" },
+      { label: "Privacy Policy", href: "#" },
+    ],
+    socialLinks: [
+      { label: "Instagram", href: "#" },
+      { label: "Twitter", href: "#" },
+      { label: "LinkedIn", href: "#" },
+    ],
+    copyright: "© 2026 Vision Interiors",
+    statusText: "8:37 PM QLD, WE ARE CLOSED",
   },
   featuredWorks: {
     eyebrow: "Curated Portfolio",

@@ -165,7 +165,7 @@ export default function OurProcess({ process }: OurProcessProps) {
               aria-label={`Go to ${process.steps[nextStepIndex].title}`}
               className={styles.mobileNextButton}
               onClick={() => {
-                activateStep(nextStepIndex, true);
+                activateStep(nextStepIndex);
               }}
               type="button"
             >
