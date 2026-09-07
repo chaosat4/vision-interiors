@@ -17,6 +17,11 @@ const bodyFont = Manrope({
 export const metadata: Metadata = {
   title: "Vision Interiors",
   description: "Architecture and interior design studio.",
+  icons: {
+    icon: [{ url: "/visison-favicon.png", type: "image/png" }],
+    shortcut: "/visison-favicon.png",
+    apple: "/visison-favicon.png",
+  },
 };
 
 export default function RootLayout({
