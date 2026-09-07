@@ -280,6 +280,7 @@ export default function AboutVision({ about }: AboutVisionProps) {
 
       if (frameRef.current) {
         window.cancelAnimationFrame(frameRef.current);
+        frameRef.current = null;
       }
     };
   }, []);
