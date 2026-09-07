@@ -104,11 +104,70 @@ Rules:
 - Cards should feel premium: clear project image, concise metadata, and restrained hover motion.
 - Mobile must retain horizontal swipe with readable card copy and spacing.
 
+### Gallery Page Rules
+
+- Route: `/gallery`, on the dark editorial ground shared with Featured Works,
+  over a fine woven texture and vignette.
+- No navbar. A single back control sits top left, matching the contact page.
+- Header elements stage in (eyebrow, heading, description, count) and a hairline
+  rule draws across beneath them.
+- Content is **auto-generated**: `lib/gallery.ts` reads `public/gallery` on the
+  server. Adding an image file is the only step — no code or content edit.
+- Order is newest first (file mtime descending, file name descending as tiebreak).
+  Git does not preserve mtimes, so prefix file names when order matters in production.
+- Alt text is derived from the file name; a leading date or number prefix is stripped.
+- Bento rhythm is a six-tile repeat on a four-column grid, driven purely by
+  `:nth-child` so breakpoints can redefine it cleanly. `grid-auto-flow: dense`
+  fills any gap left by an incomplete final row.
+- The newest image always lands on the large 2x2 feature tile.
+- Below 1024px the grid drops to two columns with every third tile full width.
+- Tiles reveal on scroll via IntersectionObserver: blur-lift in, staggered by
+  `(index % 6) * 90ms` so each bento group unfolds rather than snapping in.
+- Each tile carries a shimmer skeleton that sits above the image until it decodes,
+  then crossfades out as the image fades up from a 1.06 scale.
+- Load state is tracked from `onLoad` **and** an `img.complete` check on mount,
+  since cached images can finish before hydration and never fire `onLoad`.
+- Tiles reveal a rule-prefixed caption and a soft veil on hover/focus; the image
+  scales gently.
+- Reveal and fade are JS-driven, so a `<noscript>` block forces the finished
+  state rather than leaving an empty grid.
+- Clicking a tile opens a native `<dialog>` lightbox — this gives a focus trap,
+  Escape-to-close and an inert background without custom code. Arrow keys step
+  through images, page scroll is locked while open, and focus returns to the
+  tile that opened it.
+- A missing or empty `public/gallery` renders the empty state, never an error.
+
+### Contact Page Rules
+
+- Route: `/contact`, built as a guided multi-step brief rather than a single form.
+- One question per step: four choice steps, then a details step, then a review step.
+- Choice selection auto-advances after a short beat; reduced motion advances immediately.
+- Deliberately quiet: solid `--sand` ground, no imagery, no navbar, no progress rail
+  and no step counter. Restraint is the point — the question carries the page.
+- Chrome is one context-aware back control, top left: "Back To Home" on the first
+  step and on success, "Back" on every step in between. No second back affordance.
+- Choices are hairline-ruled list rows, not cards, with a small ink marker that fills
+  when selected and a subtle shift on hover.
+- Inputs are underline-only (bottom rule), never boxed.
+- Review step is a hairline definition list with per-entry Edit actions.
+- One solid ink button per screen; it inverts to outline on hover.
+- Studio contact details sit as a quiet line at the foot of the page.
+- Focus moves to the step heading on every step change, but never on first paint —
+  the guard is keyed on the step itself so StrictMode's double-invoke cannot steal focus.
+- Errors use `role="alert"` with `aria-invalid` / `aria-describedby`.
+- Choices are real radio inputs, so arrow-key navigation works natively.
+- Submission posts to `/api/contact`, which re-validates server-side against the
+  same content file. Delivery is still a TODO stub.
+
 ## Navbar Rules
 
 - Desktop: full nav links + CTA.
 - Mobile: hamburger trigger + expandable menu panel.
 - Ensure transparent/glass nav remains readable across bright video frames.
+- Extracted to `components/ui/SiteNav.tsx`. The `revealed` prop drives the staged
+  entrance (home holds it until the splash finishes; other routes render revealed).
+- `linkBase` prefixes in-page hash links so `#works` resolves back to home from a
+  sub-route. The contact page deliberately renders no navbar at all.
 
 ## Content Rules
 
@@ -127,7 +186,19 @@ Rules:
   - `components/pages/home/AboutVision.module.css`
   - `components/pages/home/FeaturedWorks.tsx`
   - `components/pages/home/FeaturedWorks.module.css`
+  - `components/pages/contact/ContactExperience.tsx`
+  - `components/pages/contact/ContactExperience.module.css`
+  - `components/pages/gallery/GalleryExperience.tsx`
+  - `components/pages/gallery/GalleryExperience.module.css`
+  - `app/gallery/page.tsx`
+  - `lib/gallery.ts`
+  - `content/gallery/gallery.ts`
+  - `components/ui/SiteNav.tsx`
+  - `components/ui/SiteNav.module.css`
+  - `app/contact/page.tsx`
+  - `app/api/contact/route.ts`
   - `content/content.ts`
+  - `content/contact/contact.ts`
   - `app/globals.css`
   - `app/layout.tsx`
 - Keep this document updated when visual tokens, motion timing, or component hierarchy changes.

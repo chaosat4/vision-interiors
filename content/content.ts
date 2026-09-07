@@ -148,9 +148,9 @@ export const homeContent: HomeContent = {
     bottomLine: "INTERIORS",
   },
   navigation: [
-    { label: "Studio", href: "#studio" },
+    { label: "Studio", href: "#about" },
     { label: "Works", href: "#works" },
-    { label: "Gallery", href: "#gallery" },
+    { label: "Gallery", href: "/gallery" },
     { label: "Process", href: "#process" },
   ],
   ctaLabel: "Contact Us",
@@ -246,7 +246,7 @@ export const homeContent: HomeContent = {
     description:
       "We work closely with clients right from the start, with clear communication and expert guidance along the way. We also work closely with builders, consultants, and partners to make sure each project runs smoothly and the final build delivers well beyond shared aspirations.",
     ctaLabel: "Learn More About Us",
-    ctaHref: "#contact",
+    ctaHref: "/contact",
     images: [
       {
         slug: "about-left",
@@ -399,7 +399,7 @@ export const homeContent: HomeContent = {
     description:
       "Share your vision and we'll map the spatial direction, material language, and execution pathway into one cohesive design journey.",
     label: "Let's Start Today",
-    href: "#top",
+    href: "/contact",
   },
   footer: {
     imageUrl:
@@ -413,8 +413,8 @@ export const homeContent: HomeContent = {
       { label: "Archive", href: "#works" },
       { label: "Studio", href: "#about" },
       { label: "Process", href: "#process" },
-      { label: "Gallery", href: "#works" },
-      { label: "Contact Us", href: "#contact" },
+      { label: "Gallery", href: "/gallery" },
+      { label: "Contact Us", href: "/contact" },
     ],
     infoHeading: "Info",
     infoLines: [

@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import type { CSSProperties, MouseEvent as ReactMouseEvent } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { HomeContent } from "@/content/content";
+import SiteNav from "@/components/ui/SiteNav";
 
 import AboutVision from "./AboutVision";
 import ArchitecturalCta from "./ArchitecturalCta";
@@ -21,6 +21,13 @@ const HERO_VIDEO_PLAYBACK_RATE = 1;
 const HERO_VIDEO_STOP_POINT = 0.5;
 const HERO_VIDEO_PAUSE_DURATION = 1400;
 const VIDEO_INITIAL_FRAME = 0.04;
+
+/**
+ * Module scope survives client-side navigation but resets on a full page load.
+ * That is exactly the lifetime we want: the splash plays once when someone
+ * arrives, and returning to the home page from /gallery or /contact skips it.
+ */
+let hasPlayedSplashThisPageLoad = false;
 const IS_DEVELOPMENT = process.env.NODE_ENV === "development";
 
 type SplashPhase = "intro" | "split" | "hold" | "burst" | "done";
@@ -41,7 +48,7 @@ function getSplashHoldWidth(viewportWidth: number): number {
     return Math.min(Math.max(13 * 16, viewportWidth * 0.58), 22 * 16);
   }
 
-  return Math.min(Math.max(15 * 16, viewportWidth * 0.31), 29 * 16);
+  return Math.min(Math.max(13 * 16, viewportWidth * 0.24), 26 * 16);
 }
 
 function getSplashHoldHeight(viewportWidth: number): number {
@@ -71,7 +78,6 @@ function markSplashAsSeen() {
 export default function HomeExperience({ content }: HomeExperienceProps) {
   const [phase, setPhase] = useState<SplashPhase>("intro");
   const [headlineIndex, setHeadlineIndex] = useState(0);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [splitOffset, setSplitOffset] = useState<{
     left: number;
     right: number;
@@ -152,7 +158,11 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    if (prefersReducedMotion || (!IS_DEVELOPMENT && hasSeenSplash())) {
+    if (
+      prefersReducedMotion ||
+      hasPlayedSplashThisPageLoad ||
+      (!IS_DEVELOPMENT && hasSeenSplash())
+    ) {
       const skipTimer = window.setTimeout(() => {
         setPhase("done");
 
@@ -192,26 +202,18 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
   }, []);
 
   useEffect(() => {
-    if (phase !== "done" || IS_DEVELOPMENT) {
+    if (phase !== "done") {
       return;
     }
 
-    markSplashAsSeen();
+    // Recorded on completion rather than on start, so StrictMode's remount in
+    // development does not mark the splash as played before it has run.
+    hasPlayedSplashThisPageLoad = true;
+
+    if (!IS_DEVELOPMENT) {
+      markSplashAsSeen();
+    }
   }, [phase]);
-
-  useEffect(() => {
-    const closeMenuOnDesktop = () => {
-      if (window.innerWidth > 840) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", closeMenuOnDesktop);
-
-    return () => {
-      window.removeEventListener("resize", closeMenuOnDesktop);
-    };
-  }, []);
 
   useEffect(() => {
     const primeVideoFrame = (video: HTMLVideoElement | null) => {
@@ -274,11 +276,24 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
       const holdWindowHeight = getSplashHoldHeight(viewportWidth);
       const safetyGap = Math.max(30, viewportWidth * 0.022);
       const verticalSafetyGap = Math.max(26, window.innerHeight * 0.022);
-      const leftDistance = topWidth / 2 + holdWindowWidth / 2 + safetyGap;
-      const rightDistance = bottomWidth / 2 + holdWindowWidth / 2 + safetyGap;
-      const upDistance = topHeight / 2 + holdWindowHeight / 2 + verticalSafetyGap;
-      const downDistance =
-        bottomHeight / 2 + holdWindowHeight / 2 + verticalSafetyGap;
+      const edgeMargin = 12;
+      const viewportHeight = window.innerHeight;
+      const leftDistance = Math.min(
+        topWidth / 2 + holdWindowWidth / 2 + safetyGap,
+        Math.max(0, viewportWidth / 2 - topWidth / 2 - edgeMargin),
+      );
+      const rightDistance = Math.min(
+        bottomWidth / 2 + holdWindowWidth / 2 + safetyGap,
+        Math.max(0, viewportWidth / 2 - bottomWidth / 2 - edgeMargin),
+      );
+      const upDistance = Math.min(
+        topHeight / 2 + holdWindowHeight / 2 + verticalSafetyGap,
+        Math.max(0, viewportHeight / 2 - topHeight / 2 - edgeMargin),
+      );
+      const downDistance = Math.min(
+        bottomHeight / 2 + holdWindowHeight / 2 + verticalSafetyGap,
+        Math.max(0, viewportHeight / 2 - bottomHeight / 2 - edgeMargin),
+      );
 
       setSplitOffset({
         left: Math.ceil(leftDistance),
@@ -453,10 +468,6 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
     [splitOffset.down, splitOffset.left, splitOffset.right, splitOffset.up],
   );
 
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
   return (
     <>
       <section className={styles.page} data-ready={isHeroReady} id="top">
@@ -474,85 +485,12 @@ export default function HomeExperience({ content }: HomeExperienceProps) {
 
         <div aria-hidden className={styles.heroAtmosphere} />
 
-        <header className={styles.navbar}>
-          <a className={styles.brandMark} href="#top">
-            <Image
-              alt="Vision Interiors logo"
-              className={styles.brandLogo}
-              height={155}
-              priority
-              src="/vision-logo.png"
-              width={172}
-            />
-
-            <span className={styles.brandText}>
-              <span>{content.brand.topLine}</span>
-              <span>{content.brand.bottomLine}</span>
-            </span>
-          </a>
-
-          <nav aria-label="Primary" className={styles.navLinks}>
-            {content.navigation.map((item) => (
-              <a href={item.href} key={item.href} onClick={closeMobileMenu}>
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className={styles.navActions}>
-            <a
-              className={styles.contactButton}
-              href="#contact"
-              onClick={closeMobileMenu}
-            >
-              {content.ctaLabel}
-              <span aria-hidden>→</span>
-            </a>
-
-            <button
-              aria-controls="mobile-primary-nav"
-              aria-expanded={isMobileMenuOpen}
-              aria-label="Toggle navigation menu"
-              className={styles.menuButton}
-              data-open={isMobileMenuOpen}
-              onClick={() => {
-                setIsMobileMenuOpen((currentState) => !currentState);
-              }}
-              type="button"
-            >
-              <span className={styles.menuButtonLine} />
-              <span className={styles.menuButtonLine} />
-              <span className={styles.menuButtonLine} />
-            </button>
-          </div>
-        </header>
-
-        <div className={styles.mobileMenu} data-open={isMobileMenuOpen}>
-          <nav
-            aria-label="Mobile primary"
-            className={styles.mobileMenuPanel}
-            id="mobile-primary-nav"
-          >
-            {content.navigation.map((item) => (
-              <a
-                href={item.href}
-                key={`mobile-${item.href}`}
-                onClick={closeMobileMenu}
-              >
-                {item.label}
-              </a>
-            ))}
-
-            <a
-              className={styles.mobileContactButton}
-              href="#contact"
-              onClick={closeMobileMenu}
-            >
-              {content.ctaLabel}
-              <span aria-hidden>→</span>
-            </a>
-          </nav>
-        </div>
+        <SiteNav
+          brand={content.brand}
+          ctaLabel={content.ctaLabel}
+          navigation={content.navigation}
+          revealed={isHeroReady}
+        />
 
         <main className={styles.heroCopy}>
           <h1 className={styles.heroHeadline} key={activeHeadline}>

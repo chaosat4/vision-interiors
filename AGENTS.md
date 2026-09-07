@@ -20,11 +20,26 @@ Use this structure as the default pattern for new work:
 
 ```text
 app/
+  contact/
+    page.tsx
+  gallery/
+    page.tsx
+  api/
+    contact/
+      route.ts
+lib/
+  gallery.ts
 components/
+  ui/
+    SiteNav.tsx
   pages/
     home/
       Hero.tsx
       AboutPreview.tsx
+    contact/
+      ContactExperience.tsx
+    gallery/
+      GalleryExperience.tsx
     services/
       ServicesHero.tsx
       ServiceCard.tsx
@@ -33,6 +48,10 @@ components/
       ProjectCard.tsx
 content/
   content.ts
+  contact/
+    contact.ts
+  gallery/
+    gallery.ts
   services/
     services.ts
   projects/
